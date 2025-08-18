@@ -4,6 +4,8 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import StarsCanvas from "../components/canvas/StarCanvas";
 import WrapProviders from "./WrapProviders";
+import { Header } from "../components/common/Header";
+import { Footer } from "../components/common/Footer";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -32,7 +34,11 @@ html {
           <div className="fixed left-0 right-0 top-0 bottom-0 z-[-1] pointer-events-none">
             <StarsCanvas />
           </div>
-          <div className="z-10">{children}</div>
+          <div className="flex flex-col min-h-[100dvh] text-foreground">
+            {/* <Header /> */}
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
         </WrapProviders>
       </body>
     </html>
