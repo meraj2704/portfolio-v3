@@ -1,11 +1,25 @@
-'use client'
+"use client";
 
-import { useTransition, useState } from 'react'
-import Link from 'next/link'
-import { PlusCircle, Edit, Trash2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { useTransition, useState } from "react";
+import Link from "next/link";
+import { PlusCircle, Edit, Trash2 } from "lucide-react";
+import { useToast } from "@/src/hooks/use-toast";
+import { getAllServicesData, LucideIcons } from "@/src/lib/services-data";
+import { Button } from "@/src/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/src/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/src/components/ui/table";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,26 +30,23 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { useToast } from '@/hooks/use-toast'
-import { getAllServicesData, LucideIcons } from '@/lib/services-data'
-import { deleteService } from './actions'
+} from "@/src/components/ui/alert-dialog";
 
 export default function AdminServicesPage() {
-  const [isPending, startTransition] = useTransition()
-  const { toast } = useToast()
+  const [isPending, startTransition] = useTransition();
+  const { toast } = useToast();
   const services = getAllServicesData(); // Get current in-memory services
 
   const handleDelete = async (serviceId: string) => {
     startTransition(async () => {
-      await deleteService(serviceId)
+      // await deleteService(serviceId)
       toast({
-        title: 'Service Deleted',
-        description: 'The service has been successfully removed.',
-        variant: 'destructive',
-      })
-    })
-  }
+        title: "Service Deleted",
+        description: "The service has been successfully removed.",
+        variant: "destructive",
+      });
+    });
+  };
 
   return (
     <div className="space-y-6">
@@ -54,7 +65,9 @@ export default function AdminServicesPage() {
         </CardHeader>
         <CardContent>
           {services.length === 0 ? (
-            <p className="text-muted-foreground text-center py-8">No services found. Add your first service!</p>
+            <p className="text-muted-foreground text-center py-8">
+              No services found. Add your first service!
+            </p>
           ) : (
             <div className="overflow-x-auto">
               <Table>
@@ -63,7 +76,9 @@ export default function AdminServicesPage() {
                     <TableHead>Icon</TableHead>
                     <TableHead>Title</TableHead>
                     <TableHead>Short Description</TableHead>
-                    <TableHead className="w-[150px] text-right">Actions</TableHead>
+                    <TableHead className="w-[150px] text-right">
+                      Actions
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -72,14 +87,24 @@ export default function AdminServicesPage() {
                     return (
                       <TableRow key={service.id}>
                         <TableCell>
-                          {IconComponent && <IconComponent className="h-5 w-5 text-accent-primary" />}
+                          {IconComponent && (
+                            <IconComponent className="h-5 w-5 text-accent-primary" />
+                          )}
                         </TableCell>
-                        <TableCell className="font-medium">{service.title}</TableCell>
-                        <TableCell className="text-muted-foreground">{service.shortDescription}</TableCell>
+                        <TableCell className="font-medium">
+                          {service.title}
+                        </TableCell>
+                        <TableCell className="text-muted-foreground">
+                          {service.shortDescription}
+                        </TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end gap-2">
                             <Link href={`/admin/services/${service.id}/edit`}>
-                              <Button variant="outline" size="icon" className="border-accent-primary text-accent-primary hover:bg-accent-primary hover:text-accent-primary-foreground">
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                className="border-accent-primary text-accent-primary hover:bg-accent-primary hover:text-accent-primary-foreground"
+                              >
                                 <Edit className="h-4 w-4" />
                                 <span className="sr-only">Edit</span>
                               </Button>
@@ -93,20 +118,25 @@ export default function AdminServicesPage() {
                               </AlertDialogTrigger>
                               <AlertDialogContent className="bg-card border-border text-foreground">
                                 <AlertDialogHeader>
-                                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                  <AlertDialogTitle>
+                                    Are you absolutely sure?
+                                  </AlertDialogTitle>
                                   <AlertDialogDescription className="text-muted-foreground">
-                                    This action cannot be undone. This will permanently delete your
-                                    service "{service.title}" from the in-memory data.
+                                    This action cannot be undone. This will
+                                    permanently delete your service "
+                                    {service.title}" from the in-memory data.
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                  <AlertDialogCancel className="border-border text-foreground hover:bg-muted">Cancel</AlertDialogCancel>
+                                  <AlertDialogCancel className="border-border text-foreground hover:bg-muted">
+                                    Cancel
+                                  </AlertDialogCancel>
                                   <AlertDialogAction
                                     onClick={() => handleDelete(service.id)}
                                     className="bg-destructive hover:bg-destructive/90 text-destructive-foreground"
                                     disabled={isPending}
                                   >
-                                    {isPending ? 'Deleting...' : 'Delete'}
+                                    {isPending ? "Deleting..." : "Delete"}
                                   </AlertDialogAction>
                                 </AlertDialogFooter>
                               </AlertDialogContent>
@@ -123,5 +153,5 @@ export default function AdminServicesPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

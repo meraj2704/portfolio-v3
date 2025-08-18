@@ -1,10 +1,10 @@
 'use client'
 import Image from "next/image";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
+import { ReactElement, useRef, useState } from "react";
 import { Code, Server, Cpu, Database, Cloud, GitBranch } from "lucide-react";
 
-const techIcons: Record<string, JSX.Element> = {
+const techIcons: Record<string, ReactElement> = {
   "Node.js": <Code className="h-4 w-4" />,
   "TypeScript": <Code className="h-4 w-4" />,
   "React": <Cpu className="h-4 w-4" />,
@@ -46,7 +46,7 @@ export function AboutSection() {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 12,
         stiffness: 100,
         mass: 0.8
@@ -61,7 +61,7 @@ export function AboutSection() {
       opacity: 1,
       rotate: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 15,
         stiffness: 100,
         mass: 0.5
@@ -70,7 +70,7 @@ export function AboutSection() {
     hover: {
       scale: 1.02,
       transition: { 
-        type: "spring", 
+        type: "spring" as const, 
         stiffness: 200,
         damping: 10
       }
@@ -84,7 +84,7 @@ export function AboutSection() {
       opacity: 1,
       transition: {
         delay: 0.5 + i * 0.07,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 400,
         damping: 10
       }
@@ -96,7 +96,7 @@ export function AboutSection() {
       color: "hsl(var(--accent-foreground))",
       boxShadow: "0 8px 20px -5px rgba(18,247,214,0.3)",
       transition: { 
-        type: "spring",
+        type: "spring" as const,
         stiffness: 500,
         damping: 15
       }
@@ -109,7 +109,7 @@ export function AboutSection() {
       transition: {
         duration: 4,
         repeat: Infinity,
-        ease: "easeInOut"
+        ease: "easeInOut" as const
       }
     }
   };

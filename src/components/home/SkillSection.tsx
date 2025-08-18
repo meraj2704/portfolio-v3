@@ -1,7 +1,19 @@
 "use client";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
 import { Card, CardTitle } from "../ui/card";
-import { Terminal, Layers, Server, Database, GitBranch, Code } from "lucide-react";
+import {
+  Terminal,
+  Layers,
+  Server,
+  Database,
+  GitBranch,
+  Code,
+} from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
 
@@ -9,7 +21,7 @@ export function SkillsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   // Scroll-based animations
@@ -34,7 +46,7 @@ export function SkillsSection() {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 10,
       },
@@ -44,10 +56,10 @@ export function SkillsSection() {
   const hoverEffect = {
     scale: 1.05,
     y: -5,
-    boxShadow: "0 10px 25px -5px rgba(18,247,214,0.4)",
-    borderColor: "hsl(var(--accent-primary))",
+    boxShadow: "0 10px 25px -5px rgba(18,247,214,0.4)" as const,
+    borderColor: "hsl(var(--accent-primary))" as const,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 400,
       damping: 10,
     },
@@ -59,9 +71,9 @@ export function SkillsSection() {
       transition: {
         duration: 6,
         repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
+        ease: "easeInOut" as const,
+      },
+    },
   };
 
   const icons = [
@@ -123,7 +135,7 @@ export function SkillsSection() {
       style={{ opacity, scale }}
     >
       {/* Floating background elements */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0 pointer-events-none overflow-hidden"
         style={{ y }}
       >
@@ -165,8 +177,8 @@ export function SkillsSection() {
         >
           {icons.map((skill, index) => (
             <motion.div key={index} variants={item} custom={index}>
-              <motion.div 
-                whileHover={hoverEffect} 
+              <motion.div
+                whileHover={hoverEffect}
                 className="h-full"
                 initial="hidden"
                 animate="visible"

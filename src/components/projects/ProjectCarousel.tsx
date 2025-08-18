@@ -20,7 +20,9 @@ export function ProjectCarousel({ images, title }: ProjectCarouselProps) {
   const [count, setCount] = useState(0);
 
   const onSelect = useCallback((api: CarouselApi) => {
-    setCurrent(api.selectedScrollSnap() + 1);
+    if (api) {
+      setCurrent(api.selectedScrollSnap() + 1);
+    }
   }, []);
 
   useEffect(() => {

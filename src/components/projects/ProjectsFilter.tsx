@@ -3,12 +3,13 @@ import { Input } from "../ui/input";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 
-
 interface ProjectsFilterProps {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
   selectedTechnologies: string[];
-  setSelectedTechnologies: (tech: string[]) => void;
+  setSelectedTechnologies: (
+    tech: string[] | ((prev: string[]) => string[])
+  ) => void;
 }
 
 export function ProjectsFilter({
@@ -18,7 +19,7 @@ export function ProjectsFilter({
   setSelectedTechnologies,
 }: ProjectsFilterProps) {
   const handleTechnologyToggle = (tech: string) => {
-    setSelectedTechnologies((prev) =>
+    setSelectedTechnologies((prev: string[]) =>
       prev.includes(tech) ? prev.filter((t) => t !== tech) : [...prev, tech]
     );
   };

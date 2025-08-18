@@ -1,8 +1,7 @@
-import Link from "next/link"
-import { Code } from 'lucide-react'
-import { ServiceCard } from "@/src/components/service-card"
-import { getAllServicesData } from "@/src/lib/services-data"
-
+import Link from "next/link";
+import { Code } from "lucide-react";
+import { ServiceCard } from "@/src/components/service-card";
+import { getAllServicesData } from "@/src/lib/services-data";
 
 export default function ServicesPage() {
   return (
@@ -13,19 +12,34 @@ export default function ServicesPage() {
           <span className="text-lg font-semibold">DevPortfolio</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link href="/#about" className="text-sm font-medium hover:text-accent-primary transition-colors">
+          <Link
+            href="/#about"
+            className="text-sm font-medium hover:text-accent-primary transition-colors"
+          >
             About
           </Link>
-          <Link href="/#skills" className="text-sm font-medium hover:text-accent-primary transition-colors">
+          <Link
+            href="/#skills"
+            className="text-sm font-medium hover:text-accent-primary transition-colors"
+          >
             Skills
           </Link>
-          <Link href="/projects" className="text-sm font-medium hover:text-accent-primary transition-colors">
+          <Link
+            href="/projects"
+            className="text-sm font-medium hover:text-accent-primary transition-colors"
+          >
             Projects
           </Link>
-          <Link href="/services" className="text-sm font-medium hover:text-accent-primary transition-colors">
+          <Link
+            href="/services"
+            className="text-sm font-medium hover:text-accent-primary transition-colors"
+          >
             Services
           </Link>
-          <Link href="/#contact" className="text-sm font-medium hover:text-accent-primary transition-colors">
+          <Link
+            href="/#contact"
+            className="text-sm font-medium hover:text-accent-primary transition-colors"
+          >
             Contact
           </Link>
         </nav>
@@ -33,13 +47,16 @@ export default function ServicesPage() {
 
       <main className="flex-1 py-16 md:py-24">
         <div className="container px-4 md:px-6 max-w-6xl mx-auto">
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl text-center mb-12">My Services</h1>
+          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl text-center mb-12">
+            My Services
+          </h1>
           <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl text-center mb-12">
-            I offer a range of specialized development services to help bring your ideas to life.
+            I offer a range of specialized development services to help bring
+            your ideas to life.
           </p>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {getAllServicesData?.map(service => (
+            {getAllServicesData()?.map((service) => (
               <ServiceCard
                 key={service.id}
                 id={service.id}
@@ -57,20 +74,32 @@ export default function ServicesPage() {
           &copy; {new Date().getFullYear()} John Doe. All rights reserved.
         </p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link href="/#about" className="text-xs hover:underline underline-offset-4 text-muted-foreground">
+          <Link
+            href="/#about"
+            className="text-xs hover:underline underline-offset-4 text-muted-foreground"
+          >
             About
           </Link>
-          <Link href="/projects" className="text-xs hover:underline underline-offset-4 text-muted-foreground">
+          <Link
+            href="/projects"
+            className="text-xs hover:underline underline-offset-4 text-muted-foreground"
+          >
             Projects
           </Link>
-          <Link href="/services" className="text-xs hover:underline underline-offset-4 text-muted-foreground">
+          <Link
+            href="/services"
+            className="text-xs hover:underline underline-offset-4 text-muted-foreground"
+          >
             Services
           </Link>
-          <Link href="/#contact" className="text-xs hover:underline underline-offset-4 text-muted-foreground">
+          <Link
+            href="/#contact"
+            className="text-xs hover:underline underline-offset-4 text-muted-foreground"
+          >
             Contact
           </Link>
         </nav>
       </footer>
     </div>
-  )
+  );
 }

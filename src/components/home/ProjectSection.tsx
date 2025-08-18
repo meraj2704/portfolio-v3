@@ -1,5 +1,10 @@
-'use client'
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+"use client";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
@@ -28,9 +33,9 @@ export function ProjectsSection() {
       opacity: 1,
       transition: {
         staggerChildren: 0.15,
-        delayChildren: 0.2
-      }
-    }
+        delayChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
@@ -39,12 +44,12 @@ export function ProjectsSection() {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 12,
         stiffness: 100,
-        mass: 0.8
-      }
-    }
+        mass: 0.8,
+      },
+    },
   };
 
   const floatingVariants = {
@@ -53,9 +58,9 @@ export function ProjectsSection() {
       transition: {
         duration: 6,
         repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
+        ease: "easeInOut" as const,
+      },
+    },
   };
 
   return (
@@ -66,7 +71,7 @@ export function ProjectsSection() {
       style={{ opacity, scale }}
     >
       {/* Floating background elements */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0 pointer-events-none overflow-hidden"
         style={{ y }}
       >
@@ -93,7 +98,7 @@ export function ProjectsSection() {
           variants={containerVariants}
           className="text-center mb-16"
         >
-          <motion.h2 
+          <motion.h2
             className="text-4xl font-bold tracking-tight sm:text-5xl mb-4"
             variants={itemVariants}
           >
@@ -102,7 +107,7 @@ export function ProjectsSection() {
               Projects
             </span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
             variants={itemVariants}
           >
@@ -118,11 +123,7 @@ export function ProjectsSection() {
           variants={containerVariants}
         >
           {featuredProjects.map((project, index) => (
-            <motion.div 
-              key={project.id}
-              variants={itemVariants}
-              custom={index}
-            >
+            <motion.div key={project.id} variants={itemVariants} custom={index}>
               <ProjectCard {...project} />
             </motion.div>
           ))}
@@ -133,11 +134,11 @@ export function ProjectsSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false }}
-          transition={{ 
+          transition={{
             type: "spring",
             stiffness: 100,
             damping: 10,
-            delay: 0.4
+            delay: 0.4,
           }}
         >
           <Link href="/projects">

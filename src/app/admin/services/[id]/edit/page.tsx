@@ -3,13 +3,14 @@
 import { useActionState } from "react";
 import Link from "next/link";
 import { notFound, useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
-import { getServiceById, LucideIcons } from "@/lib/services-data";
+import { getServiceById, LucideIcons } from "@/src/lib/services-data";
+import { useToast } from "@/src/hooks/use-toast";
+import { Button } from "@/src/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
+import { Label } from "@/src/components/ui/label";
+import { Input } from "@/src/components/ui/input";
+import { Textarea } from "@/src/components/ui/textarea";
+
 
 interface AdminEditServicePageProps {
   params: {

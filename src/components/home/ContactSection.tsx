@@ -136,23 +136,17 @@ export function ContactSection() {
             />
           </motion.div>
 
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.8 }}
+          <motion.button
+            type="submit"
+            className="w-full h-12 bg-gradient-to-r from-accent-primary to-accent-secondary text-background hover:from-accent-primary/90 hover:to-accent-secondary/90 transition-all group relative overflow-hidden"
+            animate={controls}
           >
-            <Button
-              type="submit"
-              className="w-full h-12 bg-gradient-to-r from-accent-primary to-accent-secondary text-background hover:from-accent-primary/90 hover:to-accent-secondary/90 transition-all group relative overflow-hidden"
-              animate={controls}
-            >
-              <span className="relative z-10 flex items-center justify-center gap-2">
-                <Send className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                Send Message
-              </span>
-              <span className="absolute inset-0 bg-gradient-to-r from-accent-primary/80 to-accent-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </Button>
-          </motion.div>
+            <span className="relative z-10 flex items-center justify-center gap-2">
+              <Send className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              Send Message
+            </span>
+            <span className="absolute inset-0 bg-gradient-to-r from-accent-primary/80 to-accent-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </motion.button>
         </motion.form>
 
         <motion.div
