@@ -1,18 +1,23 @@
-'use client'
+"use client";
 import Image from "next/image";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
 import { ReactElement, useRef, useState } from "react";
 import { Code, Server, Cpu, Database, Cloud, GitBranch } from "lucide-react";
 
 const techIcons: Record<string, ReactElement> = {
   "Node.js": <Code className="h-4 w-4" />,
-  "TypeScript": <Code className="h-4 w-4" />,
-  "React": <Cpu className="h-4 w-4" />,
+  TypeScript: <Code className="h-4 w-4" />,
+  React: <Cpu className="h-4 w-4" />,
   "Next.js": <Server className="h-4 w-4" />,
   "Nest.js": <Server className="h-4 w-4" />,
-  "AWS": <Cloud className="h-4 w-4" />,
-  "GraphQL": <Database className="h-4 w-4" />,
-  "Docker": <Database className="h-4 w-4" />
+  AWS: <Cloud className="h-4 w-4" />,
+  GraphQL: <Database className="h-4 w-4" />,
+  Docker: <Database className="h-4 w-4" />,
 };
 
 export function AboutSection() {
@@ -20,7 +25,7 @@ export function AboutSection() {
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   // Scroll-based animations
@@ -35,9 +40,9 @@ export function AboutSection() {
       opacity: 1,
       transition: {
         staggerChildren: 0.15,
-        delayChildren: 0.2
-      }
-    }
+        delayChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
@@ -49,9 +54,9 @@ export function AboutSection() {
         type: "spring" as const,
         damping: 12,
         stiffness: 100,
-        mass: 0.8
-      }
-    }
+        mass: 0.8,
+      },
+    },
   };
 
   const imageVariants = {
@@ -64,17 +69,17 @@ export function AboutSection() {
         type: "spring" as const,
         damping: 15,
         stiffness: 100,
-        mass: 0.5
-      }
+        mass: 0.5,
+      },
     },
     hover: {
       scale: 1.02,
-      transition: { 
-        type: "spring" as const, 
+      transition: {
+        type: "spring" as const,
         stiffness: 200,
-        damping: 10
-      }
-    }
+        damping: 10,
+      },
+    },
   };
 
   const techVariants = {
@@ -86,8 +91,8 @@ export function AboutSection() {
         delay: 0.5 + i * 0.07,
         type: "spring" as const,
         stiffness: 400,
-        damping: 10
-      }
+        damping: 10,
+      },
     }),
     hover: {
       y: -4,
@@ -95,12 +100,12 @@ export function AboutSection() {
       backgroundColor: "hsl(var(--accent))",
       color: "hsl(var(--accent-foreground))",
       boxShadow: "0 8px 20px -5px rgba(18,247,214,0.3)",
-      transition: { 
+      transition: {
         type: "spring" as const,
         stiffness: 500,
-        damping: 15
-      }
-    }
+        damping: 15,
+      },
+    },
   };
 
   const floatingVariants = {
@@ -109,9 +114,9 @@ export function AboutSection() {
       transition: {
         duration: 4,
         repeat: Infinity,
-        ease: "easeInOut" as const
-      }
-    }
+        ease: "easeInOut" as const,
+      },
+    },
   };
 
   return (
@@ -126,7 +131,7 @@ export function AboutSection() {
       variants={containerVariants}
     >
       {/* Floating background elements */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0 pointer-events-none overflow-hidden"
         style={{ y }}
       >
@@ -140,8 +145,7 @@ export function AboutSection() {
           className="absolute bottom-1/3 right-1/4 w-56 h-56 rounded-full bg-primary/10 blur-xl"
           variants={floatingVariants}
           initial="animate"
-          animate="animate"
-          transition={{ delay: 1 }}
+          animate="animate" transition={{ delay: 1 }}
         />
       </motion.div>
 
@@ -155,13 +159,14 @@ export function AboutSection() {
           >
             <div className="absolute inset-0 rounded-3xl border-2 border-accent-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-transparent via-transparent to-accent-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
+
             <Image
-              src="/professional-headshot.jpg"
+              src="/meraj.jpg"
               width={600}
               height={600}
               alt="Professional developer headshot"
-              className="mx-auto rounded-3xl object-cover aspect-square border-2 border-border/50 shadow-2xl z-10 relative"
+              className="mx-auto  rounded-3xl object-cover aspect-square border-2 border-border/50 shadow-2xl z-10 relative "
+              style={{ transform: "scaleX(-1)" }}
               priority
             />
 
@@ -180,36 +185,48 @@ export function AboutSection() {
               )}
             </AnimatePresence>
           </motion.div>
-          
+
           {/* Content */}
           <div className="space-y-8">
-            <motion.h2 
+            <motion.h2
               className="text-5xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-foreground to-foreground/90 bg-clip-text text-transparent"
               variants={itemVariants}
             >
-              Engineering <span className="text-accent-primary">Digital</span> Solutions
+              Engineering <span className="text-accent-primary">Digital</span>{" "}
+              Solutions
             </motion.h2>
-            
+
             <div className="space-y-6 text-muted-foreground">
-              <motion.p variants={itemVariants} className="text-lg leading-relaxed">
-                As a <span className="font-semibold text-foreground">Full Stack Architect</span>, I specialize in building 
-                performant, scalable applications using modern JavaScript ecosystems. 
-                With expertise across the entire stack, I bridge the gap between 
-                innovative design and robust engineering.
+              <motion.p
+                variants={itemVariants}
+                className="text-lg leading-relaxed"
+              >
+                As a{" "}
+                <span className="font-semibold text-foreground">
+                  Full Stack Architect
+                </span>
+                , I specialize in building performant, scalable applications
+                using modern JavaScript ecosystems. With expertise across the
+                entire stack, I bridge the gap between innovative design and
+                robust engineering.
               </motion.p>
-              
-              <motion.p variants={itemVariants} className="text-lg leading-relaxed">
-                My approach combines <span className="font-semibold text-foreground">technical excellence</span> with 
-                product-focused thinking. I don't just write code—I craft solutions 
-                that drive business value while maintaining exceptional user experiences.
+
+              <motion.p
+                variants={itemVariants}
+                className="text-lg leading-relaxed"
+              >
+                My approach combines{" "}
+                <span className="font-semibold text-foreground">
+                  technical excellence
+                </span>{" "}
+                with product-focused thinking. I don't just write code—I craft
+                solutions that drive business value while maintaining
+                exceptional user experiences.
               </motion.p>
             </div>
 
             {/* Technologies */}
-            <motion.div 
-              variants={itemVariants}
-              className="pt-2"
-            >
+            <motion.div variants={itemVariants} className="pt-2">
               <h3 className="text-sm font-semibold text-muted-foreground mb-4 uppercase tracking-wider">
                 Core Technology Stack
               </h3>
