@@ -123,11 +123,11 @@ export function AboutSection() {
     <motion.section
       ref={ref}
       id="about"
-      className="w-full py-24 md:py-32 bg-card/50 overflow-hidden relative"
+      className="w-full py-12 md:py-32 bg-card/50 overflow-hidden relative"
       style={{ opacity, scale }}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: false, margin: "-100px" }}
+      viewport={{ once: false, margin: "-50px" }}
       variants={containerVariants}
     >
       {/* Floating background elements */}
@@ -136,26 +136,27 @@ export function AboutSection() {
         style={{ y }}
       >
         <motion.div
-          className="absolute top-1/4 left-1/4 w-48 h-48 rounded-full bg-accent-primary/10 blur-xl"
+          className="absolute top-1/4 left-1/4 w-32 h-32 md:w-48 md:h-48 rounded-full bg-accent-primary/10 blur-xl"
           variants={floatingVariants}
           initial="animate"
           animate="animate"
         />
         <motion.div
-          className="absolute bottom-1/3 right-1/4 w-56 h-56 rounded-full bg-primary/10 blur-xl"
+          className="absolute bottom-1/3 right-1/4 w-40 h-40 md:w-56 md:h-56 rounded-full bg-primary/10 blur-xl"
           variants={floatingVariants}
           initial="animate"
-          animate="animate" transition={{ delay: 1 }}
+          animate="animate"
+          transition={{ delay: 1 }}
         />
       </motion.div>
 
       <div className="container px-4 md:px-6 max-w-7xl mx-auto relative">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Image with interactive effects */}
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
+          {/* Image with interactive effects - moved to bottom on mobile */}
           <motion.div
             variants={imageVariants}
             whileHover="hover"
-            className="relative group"
+            className="relative group order-1 lg:order-none"
           >
             <div className="absolute inset-0 rounded-3xl border-2 border-accent-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-transparent via-transparent to-accent-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -165,7 +166,7 @@ export function AboutSection() {
               width={600}
               height={600}
               alt="Professional developer headshot"
-              className="mx-auto  rounded-3xl object-cover aspect-square border-2 border-border/50 shadow-2xl z-10 relative "
+              className="mx-auto w-full max-w-[400px] md:max-w-none rounded-3xl object-cover aspect-square border-2 border-border/50 shadow-2xl z-10 relative"
               style={{ transform: "scaleX(-1)" }}
               priority
             />
@@ -187,50 +188,47 @@ export function AboutSection() {
           </motion.div>
 
           {/* Content */}
-          <div className="space-y-8">
+          <div className="space-y-6 md:space-y-8">
             <motion.h2
-              className="text-5xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-foreground to-foreground/90 bg-clip-text text-transparent"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/90 bg-clip-text text-transparent"
               variants={itemVariants}
             >
               Engineering <span className="text-accent-primary">Digital</span>{" "}
               Solutions
             </motion.h2>
 
-            <div className="space-y-6 text-muted-foreground">
+            <div className="space-y-4 md:space-y-6 text-muted-foreground">
               <motion.p
                 variants={itemVariants}
-                className="text-lg leading-relaxed"
+                className="text-base md:text-lg leading-relaxed"
               >
                 As a{" "}
                 <span className="font-semibold text-foreground">
                   Full Stack Architect
                 </span>
                 , I specialize in building performant, scalable applications
-                using modern JavaScript ecosystems. With expertise across the
-                entire stack, I bridge the gap between innovative design and
-                robust engineering.
+                using modern JavaScript ecosystems.
               </motion.p>
 
               <motion.p
                 variants={itemVariants}
-                className="text-lg leading-relaxed"
+                className="text-base md:text-lg leading-relaxed"
               >
                 My approach combines{" "}
                 <span className="font-semibold text-foreground">
                   technical excellence
                 </span>{" "}
-                with product-focused thinking. I don't just write code—I craft
-                solutions that drive business value while maintaining
-                exceptional user experiences.
+                with product-focused thinking to craft solutions that drive
+                business value.
               </motion.p>
             </div>
 
             {/* Technologies */}
             <motion.div variants={itemVariants} className="pt-2">
-              <h3 className="text-sm font-semibold text-muted-foreground mb-4 uppercase tracking-wider">
+              <h3 className="text-xs sm:text-sm font-semibold text-muted-foreground mb-3 md:mb-4 uppercase tracking-wider">
                 Core Technology Stack
               </h3>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 md:gap-3">
                 {Object.keys(techIcons).map((tech, i) => (
                   <motion.button
                     key={tech}
@@ -239,7 +237,7 @@ export function AboutSection() {
                     whileHover="hover"
                     onHoverStart={() => setHoveredTech(tech)}
                     onHoverEnd={() => setHoveredTech(null)}
-                    className="px-4 py-2 bg-background/80 backdrop-blur-sm border border-border/50 rounded-full text-sm font-medium flex items-center gap-2 hover:z-10"
+                    className="px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm bg-background/80 backdrop-blur-sm border border-border/50 rounded-full font-medium flex items-center gap-1 md:gap-2 hover:z-10"
                   >
                     {techIcons[tech]}
                     {tech}
