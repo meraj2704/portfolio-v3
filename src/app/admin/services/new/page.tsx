@@ -2,32 +2,20 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
-
-
-import { useToast } from "@/src/hooks/use-toast";
-import { LucideIcons } from "@/src/lib/services-data";
-import { Button } from "@/src/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
+import { LucideIcons } from "@/lib/services-data";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createService } from "../actions";
-import { Label } from "@/src/components/ui/label";
-import { Input } from "@/src/components/ui/input";
-import { Textarea } from "@/src/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 
 export default function AdminNewServicePage() {
   const [state, formAction, isPending] = useActionState(createService, null);
-  const { toast } = useToast();
 
   if (state?.success === false) {
-    toast({
-      title: "Error Creating Service",
-      description: state.error || "Something went wrong.",
-      variant: "destructive",
-    });
+    toast.error(state.error || "Something went wrong.");
   }
 
   const iconNames = Object.keys(LucideIcons); // Get available icon names

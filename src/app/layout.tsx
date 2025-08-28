@@ -4,8 +4,8 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import StarsCanvas from "../components/canvas/StarCanvas";
 import WrapProviders from "./WrapProviders";
-import { Header } from "../components/common/Header";
 import { Footer } from "../components/common/Footer";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -29,7 +29,8 @@ html {
 }
         `}</style>
       </head>
-      <body className="relative">
+      <body className="relative bg-black">
+        <Toaster />
         <WrapProviders>
           <div className="fixed left-0 right-0 top-0 bottom-0 z-[-1] pointer-events-none">
             <StarsCanvas />

@@ -1,44 +1,37 @@
-"use server";
-
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { setCookie } from "cookies-next";
 
-const SESSION_COOKIE_NAME = "admin_session";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "adminpassword123"; // **IMPORTANT: In a real app, never hardcode this! Use environment variables and proper hashing.**
+const SECRET = process.env.JWT_SECRET || "super-secret-key";
 
-export async function login(password: string) {
-  if (password === ADMIN_PASSWORD) {
-    // In a real app, generate a secure session token
-    const sessionId = `admin_session_${Date.now()}`;
-    const cookieStore = await cookies();
-    cookieStore.set(SESSION_COOKIE_NAME, sessionId, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60 * 24, // 1 day
-      path: "/",
-    });
-    return { success: true };
-  } else {
-    return { success: false, error: "Invalid password" };
+// Sign token
+export function signToken(payload: object) {
+  return jwt.sign(payload, SECRET, { expiresIn: "1h" });
+}
+
+// Verify token
+export function verifyToken(token: string) {
+  try {
+    return jwt.verify(token, SECRET);
+  } catch {
+    return null;
   }
 }
 
-export async function logout() {
-  const cookieStore = await cookies();
-  cookieStore.delete(SESSION_COOKIE_NAME);
-  redirect("/login");
+// Hash password
+export async function hashPassword(password: string) {
+  return await bcrypt.hash(password, 10);
 }
 
-export async function isAuthenticated(): Promise<boolean> {
-  const cookieStore = await cookies();
-  const session = await cookieStore.get(SESSION_COOKIE_NAME)?.value;
-  return !!session;
+// Compare password
+export async function comparePassword(password: string, hash: string) {
+  return await bcrypt.compare(password, hash);
 }
 
-export async function protectRoute() {
-  const authenticated = await isAuthenticated();
-  // This is a server-side only function
-  if (!authenticated) {
-    redirect("/login");
-  }
+// Clear token (server-side)
+export function clearToken() {
+  const cookieStore = cookies();
+  // Overwrite the cookie with maxAge 0 to delete it
+  setCookie("portfolio-token", "", { maxAge: 0 });
 }

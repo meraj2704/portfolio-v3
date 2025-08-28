@@ -3,15 +3,15 @@
 import { useTransition, useState } from "react";
 import Link from "next/link";
 import { PlusCircle, Edit, Trash2 } from "lucide-react";
-import { useToast } from "@/src/hooks/use-toast";
-import { getAllServicesData, LucideIcons } from "@/src/lib/services-data";
-import { Button } from "@/src/components/ui/button";
+
+import { getAllServicesData, LucideIcons } from "@/lib/services-data";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card";
+} from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -19,7 +19,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/ui/table";
+} from "@/components/ui/table";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -30,21 +30,18 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/src/components/ui/alert-dialog";
+} from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
 
 export default function AdminServicesPage() {
   const [isPending, startTransition] = useTransition();
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const services = getAllServicesData(); // Get current in-memory services
 
   const handleDelete = async (serviceId: string) => {
     startTransition(async () => {
       // await deleteService(serviceId)
-      toast({
-        title: "Service Deleted",
-        description: "The service has been successfully removed.",
-        variant: "destructive",
-      });
+      toast.success("The service has been successfully removed.");
     });
   };
 

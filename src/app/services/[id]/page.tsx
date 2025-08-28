@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Code } from "lucide-react";
-import { getServiceById, LucideIcons } from "@/src/lib/services-data";
-import { Button } from "@/src/components/ui/button";
+import { getServiceById, LucideIcons } from "@/lib/services-data";
+import { Button } from "@/components/ui/button";
 
 interface ServiceDetailsPageProps {
   params: {

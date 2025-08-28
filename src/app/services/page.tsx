@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Code } from "lucide-react";
-import { ServiceCard } from "@/src/components/service-card";
-import { getAllServicesData } from "@/src/lib/services-data";
+import { ServiceCard } from "@/components/service-card";
+import { getAllServicesData } from "@/lib/services-data";
 
 export default function ServicesPage() {
   return (

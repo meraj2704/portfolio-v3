@@ -2,69 +2,54 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/src/hooks/use-toast";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
-import { Input } from "@/src/components/ui/input";
-import { Button } from "@/src/components/ui/button";
-import { useAddData } from "@/src/hooks/useApi";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useAddData } from "@/hooks/useApi";
 import { setCookie } from "cookies-next/client";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
   const router = useRouter();
-  const login = useAddData(["login"], "/auth/login");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // point to `/api/auth/login` → matches our Next.js API route
+  const login = useAddData(["login"], "/api/auth/login");
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    const data = {
-      email,
-      password,
-    };
 
-    login.mutate(data, {
-      onSuccess: (response) => {
-        console.log("response", response);
-        setCookie("portfolio-token", response?.data?.accessToken);
-        toast({
-          title: "Login Successful",
-          description: "Redirecting to admin dashboard.",
-          variant: "default",
-        });
-        router.push("/admin/dashboard");
-      },
-      onError: (error: any) => {
-        toast({
-          title: "Login Failed",
-          description: error || "Please check your password.",
-          variant: "destructive",
-        });
-      },
-    });
-    // if (result.success) {
-    //   toast({
-    //     title: "Login Successful",
-    //     description: "Redirecting to admin dashboard.",
-    //     variant: "default",
-    //   });
-    //   router.push("/admin/dashboard");
-    // } else {
-    //   toast({
-    //     title: "Login Failed",
-    //     description: result.error || "Please check your password.",
-    //     variant: "destructive",
-    //   });
-    // }
-    setIsLoading(false);
+    login.mutate(
+      { email, password },
+      {
+        onSuccess: (response: any) => {
+          // toast({
+          //   title: "Login Successful",
+          //   description: "Redirecting to admin dashboard.",
+          // });
+          setCookie("portfolio-token", response?.data?.accessToken);
+
+          router.push("/admin/dashboard");
+        },
+        onError: (error: any) => {
+          const message =
+            error?.response?.data?.error ||
+            error?.message ||
+            "Please check your credentials.";
+          // toast({
+          //   title: "Login Failed",
+          //   description: message,
+          //   variant: "destructive",
+          // });
+        },
+        onSettled: () => {
+          setIsLoading(false);
+        },
+      }
+    );
   };
 
   return (
@@ -73,7 +58,7 @@ export default function LoginPage() {
         <CardHeader className="space-y-1 text-center">
           <CardTitle className="text-2xl">Admin Login</CardTitle>
           <CardDescription>
-            Enter your password to access the admin panel.
+            Enter your credentials to access the admin panel.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -85,7 +70,6 @@ export default function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-input border-border text-foreground placeholder:text-muted-foreground"
             />
             <Input
               id="password"
@@ -94,7 +78,6 @@ export default function LoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="bg-input border-border text-foreground placeholder:text-muted-foreground"
             />
             <Button
               type="submit"

@@ -3,14 +3,14 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
-import { getProjectById } from "@/src/lib/projects-data";
-import { CarouselApi } from "@/src/components/ui/carousel";
-import { Button } from "@/src/components/ui/button";
-import { ProjectCarousel } from "@/src/components/projects/ProjectCarousel";
-import { ProjectThumbnails } from "@/src/components/projects/ProjectThumbnail";
-import { ProjectDetails } from "@/src/components/projects/ProjectDetails";
-import { ProjectLinks } from "@/src/components/projects/ProjectLink";
-import { ProjectResources } from "@/src/components/projects/ProjectResources";
+import { getProjectById } from "@/lib/projects-data";
+import { CarouselApi } from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button";
+import { ProjectCarousel } from "@/components/projects/ProjectCarousel";
+import { ProjectThumbnails } from "@/components/projects/ProjectThumbnail";
+import { ProjectDetails } from "@/components/projects/ProjectDetails";
+import { ProjectLinks } from "@/components/projects/ProjectLink";
+import { ProjectResources } from "@/components/projects/ProjectResources";
 
 interface ProjectDetailsPageProps {
   params: {

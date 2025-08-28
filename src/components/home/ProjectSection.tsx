@@ -8,7 +8,7 @@ import {
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
-import { getAllProjectsData } from "@/src/lib/projects-data";
+import { getAllProjectsData } from "@/lib/projects-data";
 import { ProjectCard } from "../project-card";
 import { Button } from "../ui/button";
 

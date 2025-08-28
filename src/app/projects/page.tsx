@@ -1,8 +1,8 @@
 "use client";
 
-import { ProjectsFilter } from "@/src/components/projects/ProjectsFilter";
-import { ProjectsGrid } from "@/src/components/projects/ProjectsGrid";
-import { getAllProjectsData } from "@/src/lib/projects-data";
+import { ProjectsFilter } from "@/components/projects/ProjectsFilter";
+import { ProjectsGrid } from "@/components/projects/ProjectsGrid";
+import { getAllProjectsData } from "@/lib/projects-data";
 import { useState, useMemo } from "react";
 
 export default function ProjectsPage() {

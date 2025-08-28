@@ -3,36 +3,105 @@
 import { useTransition, useState } from "react";
 import Link from "next/link";
 import { PlusCircle, Edit, Trash2 } from "lucide-react";
-
-import { deleteProject } from "./actions";
-import { useToast } from "@/src/hooks/use-toast";
-import { getAllProjectsData } from "@/src/lib/projects-data";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/components/ui/table";
-import { Badge } from "@/src/components/ui/badge";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/src/components/ui/alert-dialog";
+} from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useFetchData, useDeleteData } from "@/hooks/useApi"; // Import your hooks
+import { toast } from "sonner"; // Import toast
+
+interface Project {
+  id: string;
+  name: string;
+  slug: string;
+  overview: string;
+  description?: string;
+  thumbnail: string;
+  images: string[];
+  liveDemo?: string;
+  githubLink?: string;
+  featured: boolean;
+  status: "DRAFT" | "PUBLISHED" | "ARCHIVED";
+  startDate?: string;
+  endDate?: string;
+  createdAt: string;
+  updatedAt: string;
+  Technology: {
+    id: number;
+    name: string;
+  }[];
+}
 
 export default function AdminProjectsPage() {
   const [isPending, startTransition] = useTransition();
-  const { toast } = useToast();
-  const projects = getAllProjectsData(); // Get current in-memory projects
+
+  // Fetch projects from API
+  const {
+    data: projects = [],
+    isLoading,
+    error,
+    refetch,
+  } = useFetchData<Project[]>(["projects"], "/api/projects");
+
+  // Delete mutation
+  const deleteMutation = useDeleteData(["projects"], "/api/projects");
 
   const handleDelete = async (projectId: string) => {
     startTransition(async () => {
-      await deleteProject(projectId);
-      toast({
-        title: "Project Deleted",
-        description: "The project has been successfully removed.",
-        variant: "destructive",
-      });
+      try {
+        await deleteMutation.mutateAsync(projectId);
+        toast.success("Project Deleted", {
+          description: "The project has been successfully removed.",
+        });
+        refetch(); // Refresh the list
+      } catch (error) {
+        toast.error("Error", {
+          description: "Failed to delete the project. Please try again.",
+        });
+      }
     });
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-muted-foreground">Loading projects...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-destructive">
+          Error loading projects. Please try again.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -61,6 +130,7 @@ export default function AdminProjectsPage() {
                   <TableRow>
                     <TableHead>Title</TableHead>
                     <TableHead>Technologies</TableHead>
+                    <TableHead>Status</TableHead>
                     <TableHead className="w-[150px] text-right">
                       Actions
                     </TableHead>
@@ -70,20 +140,33 @@ export default function AdminProjectsPage() {
                   {projects.map((project) => (
                     <TableRow key={project.id}>
                       <TableCell className="font-medium">
-                        {project.title}
+                        {project.name}
                       </TableCell>
                       <TableCell>
                         <div className="flex flex-wrap gap-1">
-                          {project.technologies.map((tech) => (
+                          {project.Technology.map((tech) => (
                             <Badge
-                              key={tech}
+                              key={tech.id}
                               variant="outline"
                               className="text-muted-foreground"
                             >
-                              {tech}
+                              {tech.name}
                             </Badge>
                           ))}
                         </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge
+                          variant={
+                            project.status === "PUBLISHED"
+                              ? "default"
+                              : project.status === "DRAFT"
+                              ? "secondary"
+                              : "outline"
+                          }
+                        >
+                          {project.status}
+                        </Badge>
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
@@ -112,7 +195,7 @@ export default function AdminProjectsPage() {
                                 <AlertDialogDescription className="text-muted-foreground">
                                   This action cannot be undone. This will
                                   permanently delete your project "
-                                  {project.title}" from the in-memory data.
+                                  {project.name}" from the database.
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
@@ -122,9 +205,13 @@ export default function AdminProjectsPage() {
                                 <AlertDialogAction
                                   onClick={() => handleDelete(project.id)}
                                   className="bg-destructive hover:bg-destructive/90 text-destructive-foreground"
-                                  disabled={isPending}
+                                  disabled={
+                                    isPending || deleteMutation.isPending
+                                  }
                                 >
-                                  {isPending ? "Deleting..." : "Delete"}
+                                  {isPending || deleteMutation.isPending
+                                    ? "Deleting..."
+                                    : "Delete"}
                                 </AlertDialogAction>
                               </AlertDialogFooter>
                             </AlertDialogContent>
