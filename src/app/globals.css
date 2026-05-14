@@ -44,6 +44,7 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -86,5 +87,115 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Your custom CSS variables */
+:root {
+  --bg-1: #292f36;
+  --bg-2: #1a1e23;
+  --brand-1: #12f7d6;
+  --brand-2: #12f7d6;
+  --grey: #43454d;
+  --white: #ffffff;
+  --html: #e54f26;
+  --css: #0c73b8;
+  --js: #e7a020;
+  --react: #28a9e0;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+/* Custom utility classes */
+.about-bg {
+  background-image: url("/assets/about-bg.jpg");
+}
+
+.insta-gradient {
+  background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Custom component classes */
+@layer components {
+  .btn-brand {
+    @apply bg-brand-1 text-bg-2 hover:bg-brand-2 transition-colors duration-200;
+  }
+  
+  .card-custom {
+    @apply bg-bg-1 border border-grey rounded-lg p-6;
+  }
+  
+  .text-brand {
+    @apply text-brand-1;
+  }
+  
+  .bg-custom-1 {
+    @apply bg-bg-1;
+  }
+  
+  .bg-custom-2 {
+    @apply bg-bg-2;
+  }
+  
+  .border-custom {
+    @apply border-grey;
+  }
+  
+  /* Technology specific colors */
+  .text-html {
+    @apply text-html;
+  }
+  
+  .text-css {
+    @apply text-css;
+  }
+  
+  .text-js {
+    @apply text-js;
+  }
+  
+  .text-react {
+    @apply text-react;
+  }
+  
+  .bg-html {
+    @apply bg-html;
+  }
+  
+  .bg-css {
+    @apply bg-css;
+  }
+  
+  .bg-js {
+    @apply bg-js;
+  }
+  
+  .bg-react {
+    @apply bg-react;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+  
+  .bg-gradient-instagram {
+    background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+  }
+  
+  .text-gradient-instagram {
+    background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }

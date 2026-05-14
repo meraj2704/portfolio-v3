@@ -67,7 +67,7 @@ export function ProjectsSection() {
     <motion.section
       ref={sectionRef}
       id="projects"
-      className="w-full py-24 md:py-32 relative overflow-hidden bg-card bg-opacity-50"
+      className="w-full py-24 md:py-32 relative overflow-hidden bg-background/10 "
       style={{ opacity, scale }}
     >
       {/* Floating background elements */}

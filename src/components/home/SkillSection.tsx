@@ -131,7 +131,7 @@ export function SkillsSection() {
     <motion.section
       ref={ref}
       id="skills"
-      className="w-full py-24 md:py-32 bg-background/50 overflow-hidden relative"
+      className="w-full py-24 md:py-32  overflow-hidden relative"
       style={{ opacity, scale }}
     >
       {/* Floating background elements */}
@@ -156,7 +156,7 @@ export function SkillsSection() {
 
       <div className="container px-4 md:px-6 max-w-6xl mx-auto relative">
         <motion.h2
-          className="text-3xl font-bold tracking-tighter sm:text-4xl text-center mb-12 md:mb-16"
+          className="text-3xl font-bold tracking-tighter sm:text-4xl text-center mb-12 md:mb-16 text-white"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-50px" }}
@@ -183,7 +183,7 @@ export function SkillsSection() {
                 initial="hidden"
                 animate="visible"
               >
-                <Card className="bg-card border-border/50 text-center p-6 flex flex-col items-center justify-center h-full relative overflow-hidden group">
+                <Card className="bg-n border-border/50 text-center p-6 flex flex-col items-center justify-center h-full relative overflow-hidden group">
                   {/* Animated background effect */}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-transparent opacity-0 group-hover:opacity-100"

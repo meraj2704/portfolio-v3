@@ -142,7 +142,7 @@ export function HeroSection() {
     <motion.section
       ref={sectionRef}
       id="hero"
-      className="relative w-full min-h-screen flex items-center justify-center text-center overflow-hidden bg-background/90"
+      className="relative w-full min-h-screen flex items-center justify-center text-center overflow-hidden bg-black/80"
       onMouseMove={handleMouseMove}
       style={{ opacity, scale }}
     >

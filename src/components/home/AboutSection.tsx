@@ -123,7 +123,7 @@ export function AboutSection() {
     <motion.section
       ref={ref}
       id="about"
-      className="w-full py-12 md:py-32 bg-card/50 overflow-hidden relative"
+      className="w-full py-12 md:py-32 bg-background/10 overflow-hidden relative"
       style={{ opacity, scale }}
       initial="hidden"
       whileInView="visible"
@@ -190,7 +190,7 @@ export function AboutSection() {
           {/* Content */}
           <div className="space-y-6 md:space-y-8">
             <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/90 bg-clip-text text-transparent"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/90 bg-clip-text text-white"
               variants={itemVariants}
             >
               Engineering <span className="text-accent-primary">Digital</span>{" "}
@@ -203,7 +203,7 @@ export function AboutSection() {
                 className="text-base md:text-lg leading-relaxed"
               >
                 As a{" "}
-                <span className="font-semibold text-foreground">
+                <span className="font-semibold text-white">
                   Full Stack Architect
                 </span>
                 , I specialize in building performant, scalable applications
@@ -215,7 +215,7 @@ export function AboutSection() {
                 className="text-base md:text-lg leading-relaxed"
               >
                 My approach combines{" "}
-                <span className="font-semibold text-foreground">
+                <span className="font-semibold text-white">
                   technical excellence
                 </span>{" "}
                 with product-focused thinking to craft solutions that drive

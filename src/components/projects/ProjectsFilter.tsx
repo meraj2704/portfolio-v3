@@ -1,4 +1,4 @@
-import { allTechnologies } from "@/src/lib/projects-data";
+import { allTechnologies } from "@/lib/projects-data";
 import { Input } from "../ui/input";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
